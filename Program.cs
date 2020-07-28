@@ -1,0 +1,151 @@
+﻿using System;
+/*using Design_Patterns.Memento;*/
+using Design_Patterns.State;
+using Design_Patterns.Iterator;
+using Design_Patterns.Strategy;
+using Design_Patterns.Template;
+using Design_Patterns.Command;
+using Design_Patterns.Command.FX;
+using Design_Patterns.Command.Editor;
+using Design_Patterns.Observer;
+using Design_Patterns.ChainOfResponsibility;
+
+namespace Design_Patterns
+{
+    public class Program
+    {
+        static void Main(string[] args)
+        {
+            // ExecuteMemento();
+            // ExecuteState();
+            //ExecuteIterator();
+            // ExecuteStrategy();
+            //ExecuteTemplate();
+            //ExecuteCommand();
+            //ExecuteObserver();
+            ExecuteChainofResponsibility();
+
+
+
+
+
+        }
+
+        public static void ExecuteChainofResponsibility()
+        {
+            // authenticator -> logger -> compresssor
+            Compressor test = new Compressor(null);
+            Logger logger = new Logger(test);
+            Authenticator authenticator = new Authenticator(logger);
+
+            var server = new WebServer(authenticator);
+            server.Handle(new HttpRequest("admin","1234"));
+
+        }
+
+
+        public static void ExecuteObserver()
+        {
+            DataSource dataSource = new DataSource();
+
+            Sheet sheet1 = new Sheet(dataSource);
+            Sheet sheet2 = new Sheet(dataSource);
+            Chart chart1 = new Chart(dataSource);
+            Chart chart2 = new Chart(dataSource);
+
+            dataSource.AddObserver(sheet1);
+            dataSource.AddObserver(sheet2);
+            dataSource.AddObserver(chart1);
+            dataSource.AddObserver(chart2);
+
+            dataSource.Value = 1;
+
+
+        }
+        public static void ExecuteCommand()
+        {
+            /* AddCustomerCommand command = new AddCustomerCommand(new CustomerService());
+             Button addCustomerButton = new Button();
+             addCustomerButton.Click(command); */
+
+            //Record actions and play it again
+            /* CompositeCommand composite = new CompositeCommand();
+             composite.Add(new ResizeCommand());
+             composite.Add(new BlackAndWhiteFilterCommand());
+
+             composite.Execute(); */
+            var document = new HtmlDocument();
+            document.Content = "Hello World";
+            var history = new History();
+
+            BoldCommand boldCommand = new BoldCommand(history, document);
+
+            boldCommand.Execute();
+
+            Console.WriteLine(document.Content);
+
+            UndoCommand undoCommand = new UndoCommand(history);
+            undoCommand.Execute();
+            Console.WriteLine(document.Content);
+
+        }
+        public static void ExecuteTemplate()
+        {
+            TransferMoney transferMoney = new TransferMoney();
+            transferMoney.execute();
+
+        }
+
+        public static void ExecuteStrategy()
+        {
+            ImageStorage imageStorage = new ImageStorage();
+            imageStorage.StoreImage(new PngCompressor(), new BlackAndWhiteFilter(), "passportImage");
+            imageStorage.StoreImage(new JpegCompressor(), new BlackAndWhiteFilter(), "travelpicture");
+        }
+
+        public static void ExecuteIterator()
+        {
+            BrowserHistory browserHistory = new BrowserHistory();
+            browserHistory.push("a");
+            browserHistory.push("b");
+            browserHistory.push("c");
+
+            IIterator iterator = browserHistory.createIterator();
+
+            while (iterator.HasNext())
+            {
+                var url = iterator.Current();
+                Console.WriteLine(url);
+                iterator.Next();
+            }
+
+
+        }
+
+        public static void ExecuteState()
+        {
+            Canvas canvas = new Canvas();
+            canvas.SetCurrentTool(new EraserTool());
+            canvas.MouseDown();
+            canvas.MouseUp();
+        }
+
+        public static void ExecuteMemento()
+        {
+            /* var editor = new Editor();
+             var history = new History();
+
+             editor.SetContent("a");
+             history.Push(editor.CreateState());
+
+             editor.SetContent("b");
+             history.Push(editor.CreateState());
+
+             editor.SetContent("c");
+             editor.Restore(history.Pop());
+             editor.Restore(history.Pop());
+
+             Console.WriteLine(editor.GetContent());*/
+        }
+    }
+}
