@@ -4,11 +4,12 @@ using Design_Patterns.State;
 using Design_Patterns.Iterator;
 using Design_Patterns.Strategy;
 using Design_Patterns.Template;
-using Design_Patterns.Command;
-using Design_Patterns.Command.FX;
-using Design_Patterns.Command.Editor;
+// using Design_Patterns.Command;
+// using Design_Patterns.Command.FX;
+// using Design_Patterns.Command.Editor;
 using Design_Patterns.Observer;
 using Design_Patterns.ChainOfResponsibility;
+using Design_Patterns.Visitor;
 
 namespace Design_Patterns
 {
@@ -23,12 +24,21 @@ namespace Design_Patterns
             //ExecuteTemplate();
             //ExecuteCommand();
             //ExecuteObserver();
-            ExecuteChainofResponsibility();
+            //ExecuteChainofResponsibility();
+            ExecuteVisitor();
 
 
 
 
 
+        }
+
+        public static void ExecuteVisitor()
+        {
+            HtmlDocument document = new HtmlDocument();
+            document.Add(new HeadingNode());
+            document.Add(new AnchorNode());
+            document.ExecuteOperation(new PlainTextOperation());
         }
 
         public static void ExecuteChainofResponsibility()
@@ -39,7 +49,7 @@ namespace Design_Patterns
             Authenticator authenticator = new Authenticator(logger);
 
             var server = new WebServer(authenticator);
-            server.Handle(new HttpRequest("admin","1234"));
+            server.Handle(new HttpRequest("admin", "1234"));
 
         }
 
@@ -74,19 +84,19 @@ namespace Design_Patterns
              composite.Add(new BlackAndWhiteFilterCommand());
 
              composite.Execute(); */
-            var document = new HtmlDocument();
-            document.Content = "Hello World";
-            var history = new History();
+            // var document = new HtmlDocument();
+            // document.Content = "Hello World";
+            // var history = new History();
 
-            BoldCommand boldCommand = new BoldCommand(history, document);
+            // BoldCommand boldCommand = new BoldCommand(history, document);
 
-            boldCommand.Execute();
+            // boldCommand.Execute();
 
-            Console.WriteLine(document.Content);
+            // Console.WriteLine(document.Content);
 
-            UndoCommand undoCommand = new UndoCommand(history);
-            undoCommand.Execute();
-            Console.WriteLine(document.Content);
+            // UndoCommand undoCommand = new UndoCommand(history);
+            // undoCommand.Execute();
+            // Console.WriteLine(document.Content);
 
         }
         public static void ExecuteTemplate()
