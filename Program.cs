@@ -10,6 +10,7 @@ using Design_Patterns.Template;
 using Design_Patterns.Observer;
 using Design_Patterns.ChainOfResponsibility;
 using Design_Patterns.Visitor;
+using Design_Patterns.Composite;
 
 namespace Design_Patterns
 {
@@ -25,11 +26,26 @@ namespace Design_Patterns
             //ExecuteCommand();
             //ExecuteObserver();
             //ExecuteChainofResponsibility();
-            ExecuteVisitor();
+            //ExecuteVisitor();
+            ExecuteComposite();
+        }
 
+        public static void ExecuteComposite()
+        {
 
+        Group group1 = new Group();
+        group1.AddComponent(new Shape());
+        group1.AddComponent(new Shape());
 
+        Group group2 = new Group();
+        group2.AddComponent(new Shape());
+        group2.AddComponent(new Shape());
 
+        Group group3 = new Group();
+        group3.AddComponent(group1);
+        group3.AddComponent(group2);
+
+        group3.RenderComponent();
 
         }
 
