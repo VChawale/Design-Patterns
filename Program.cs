@@ -12,6 +12,7 @@ using Design_Patterns.ChainOfResponsibility;
 using Design_Patterns.Visitor;
 using Design_Patterns.Composite;
 using Design_Patterns.Adapter;
+using Design_Patterns.Decorator;
 
 namespace Design_Patterns
 {
@@ -29,8 +30,20 @@ namespace Design_Patterns
             //ExecuteChainofResponsibility();
             //ExecuteVisitor();
             //ExecuteComposite();
-            ExecuteAdapter();
+           // ExecuteAdapter();
+           ExecuteDecorator();
         }
+
+        private static void ExecuteDecorator()
+        {
+        storeCreditCardNumber(new CompressedCloudStream( new CloudStream()));
+        }
+
+        public static void storeCreditCardNumber (IStream stream)
+        {
+            stream.write("data"+"1234-1234-1234-1234");
+        }
+
         public static void ExecuteAdapter()
         {
             var imageView = new ImageView(new Image());
