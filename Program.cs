@@ -13,6 +13,7 @@ using Design_Patterns.Visitor;
 using Design_Patterns.Composite;
 using Design_Patterns.Adapter;
 using Design_Patterns.Decorator;
+using Design_Patterns.Bridge;
 
 namespace Design_Patterns
 {
@@ -30,18 +31,30 @@ namespace Design_Patterns
             //ExecuteChainofResponsibility();
             //ExecuteVisitor();
             //ExecuteComposite();
-           // ExecuteAdapter();
-           ExecuteDecorator();
+            // ExecuteAdapter();
+            //ExecuteDecorator();
+            ExecuteBridge();
+        }
+
+        private static void ExecuteBridge()
+        {
+            RemoteControl remoteControl = new RemoteControl(new SamsungTV());
+            remoteControl.turnOn();
+
+            AdvancedRemoteControl advRemoteControl = new AdvancedRemoteControl(new SonyTV());
+            advRemoteControl.turnOn();
+            advRemoteControl.setChannel(5);
+            
         }
 
         private static void ExecuteDecorator()
         {
-        storeCreditCardNumber(new CompressedCloudStream( new CloudStream()));
+            storeCreditCardNumber(new CompressedCloudStream(new CloudStream()));
         }
 
-        public static void storeCreditCardNumber (IStream stream)
+        public static void storeCreditCardNumber(IStream stream)
         {
-            stream.write("data"+"1234-1234-1234-1234");
+            stream.write("data" + "1234-1234-1234-1234");
         }
 
         public static void ExecuteAdapter()
