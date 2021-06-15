@@ -14,6 +14,7 @@ using Design_Patterns.Composite;
 using Design_Patterns.Adapter;
 using Design_Patterns.Decorator;
 using Design_Patterns.Bridge;
+using Design_Patterns.Proxy;
 
 namespace Design_Patterns
 {
@@ -33,7 +34,22 @@ namespace Design_Patterns
             //ExecuteComposite();
             // ExecuteAdapter();
             //ExecuteDecorator();
-            ExecuteBridge();
+            //ExecuteBridge();
+            ExecuteProxy();
+        }
+
+        private static void ExecuteProxy()
+        {
+            Library eBoooklib = new Library();
+
+            string[] ebookFileNames = { "a", "b", "c" };
+
+            foreach (string filename in ebookFileNames)
+            {
+                eBoooklib.add(new EbookProxy(filename));
+            }
+
+            eBoooklib.openEbook("a");
         }
 
         private static void ExecuteBridge()
@@ -44,7 +60,7 @@ namespace Design_Patterns
             AdvancedRemoteControl advRemoteControl = new AdvancedRemoteControl(new SonyTV());
             advRemoteControl.turnOn();
             advRemoteControl.setChannel(5);
-            
+
         }
 
         private static void ExecuteDecorator()
